@@ -1,0 +1,36 @@
+<!--
+  ~ Copyright(c) $year PagesJaunes, SoLocal Group - All Rights Reserved.
+  ~
+  ~ Unauthorized copying of this file, via any medium is strictly prohibited. Proprietary and confidential
+  -->
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              style="?android:attr/textAppearanceLarge"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:textIsSelectable="true"
+              tools:context="com.jhilbold.atelierconstituant.PersonneDetailFragment">
+
+
+<TextView
+    android:id="@+id/personne_detail_nom"
+    style="?android:attr/textAppearanceLarge"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:textIsSelectable="true" />
+<TextView
+    android:id="@+id/personne_detail_telephone"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+<TextView
+    android:id="@+id/personne_detail_photo"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+
+</LinearLayout>

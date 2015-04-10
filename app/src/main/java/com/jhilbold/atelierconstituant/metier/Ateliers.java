@@ -30,6 +30,25 @@ public class Ateliers
 		final Atelier item = new Atelier("1", "Atelier 1 à paris");
 		item.setDate("le 3 janvier");
 		item.setLieu("Paris 14");
+
+		Personne p1 = new Personne();
+		p1.setNom("ami");
+		p1.setPrenom("premier");
+		p1.setId("45");
+
+		Personne p2 = new Personne();
+		p2.setNom("ami");
+		p2.setPrenom("deuxieme");
+		p2.setId("46");
+
+		ArrayList<Personne> personnes = new ArrayList<>();
+		personnes.add(p1);
+		personnes.add(p2);
+		personnes.add(p2);
+
+		item.setInvites(personnes);
+
+
 		addItem(item);
 		addItem(new Atelier("2", "Atelier 2 à paris"));
 		addItem(new Atelier("3", "Atelier 3"));

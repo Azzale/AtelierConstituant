@@ -24,6 +24,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".AtelierListActivity" />
         </activity>
+        <activity
+            android:name=".PersonneListActivity"
+            android:label="@string/title_personne_list" >
+        </activity>
+        <activity
+            android:name=".PersonneDetailActivity"
+            android:label="@string/title_personne_detail"
+            android:parentActivityName=".PersonneListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jhilbold.atelierconstituant.PersonneListActivity" />
+        </activity>
     </application>
 
 </manifest>
