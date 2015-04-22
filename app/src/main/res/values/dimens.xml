@@ -1,0 +1,12 @@
+<!--
+  ~ Copyright(c) $year PagesJaunes, SoLocal Group - All Rights Reserved.
+  ~
+  ~ Unauthorized copying of this file, via any medium is strictly prohibited. Proprietary and confidential
+  -->
+
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="textMarginTop">72dp</dimen>
+</resources>

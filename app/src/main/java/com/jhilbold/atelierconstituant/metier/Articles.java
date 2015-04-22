@@ -5,31 +5,26 @@
  */
 package com.jhilbold.atelierconstituant.metier;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * //TODO : Add a class header comments
  * <p/>
- * created on 07/04/2015
+ * created on 22/04/2015
  *
  * @author PagesJaunes
  * @version //TODO : add version
  */
-public class Article
+public class Articles
 {
-	private String id;
-
-	public Article(String s)
-	{
-		this.id = s;
-	}
-
-	public String getId()
-	{
-		return id;
-	}
-
-	@Override
-	public String toString()
-	{
-		return id;
+	public static List<Article> ITEMS = new ArrayList<Article>();
+	static {
+		ITEMS.add(new Article("1"));
+		ITEMS.add(new Article("2"));
+		ITEMS.add(new Article("3"));
+		ITEMS.add(new Article("4"));
+		ITEMS.add(new Article("5"));
+		ITEMS.add(new Article("6"));
 	}
 }

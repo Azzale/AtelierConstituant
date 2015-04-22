@@ -5,5 +5,8 @@
     <string name="title_atelier_detail">Détail de l\'atelier</string>
     <string name="title_personne_list">Personnes</string>
     <string name="title_personne_detail">Détails de la personne</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 
 </resources>
