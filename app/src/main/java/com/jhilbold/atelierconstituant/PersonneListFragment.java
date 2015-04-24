@@ -104,6 +104,8 @@ public class PersonneListFragment extends ListFragment
 		{
 			setActivatedPosition(savedInstanceState.getInt(STATE_ACTIVATED_POSITION));
 		}
+
+		getListView().setOnTouchListener((View.OnTouchListener) getActivity());
 	}
 
 	@Override

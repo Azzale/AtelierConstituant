@@ -98,6 +98,8 @@ public class ArticleListFragment extends ListFragment
 		View header = getLayoutInflater(savedInstanceState).inflate(R.layout.article_list_header, null);
 		((TextView)header.findViewById(R.id.atelier_list_header_title)).setText("Articles");
 		getListView().addHeaderView(header, null, false);
+
+		getListView().setOnTouchListener((View.OnTouchListener) getActivity());
 	}
 
 	@Override

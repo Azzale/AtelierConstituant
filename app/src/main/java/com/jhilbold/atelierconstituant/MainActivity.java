@@ -10,14 +10,25 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.widget.AbsListView;
 
+import com.jhilbold.atelierconstituant.ui.LayerEnablingAnimatorListenerCompat;
 import com.jhilbold.atelierconstituant.ui.SlidingTabLayout;
+import com.nineoldandroids.animation.ObjectAnimator;
+import com.nineoldandroids.view.ViewHelper;
 
-public class MainActivity extends ActionBarActivity implements AtelierListFragment.Callbacks, PersonneListFragment.Callbacks,ArticleListFragment.Callbacks
+public class MainActivity extends ActionBarActivity implements AtelierListFragment.Callbacks, PersonneListFragment.Callbacks,ArticleListFragment.Callbacks, View.OnTouchListener
 {
 	private Toolbar toolbar;
+	private ViewPager pager;
+	private float mInity;
+	private SlidingTabLayout tabs;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -32,17 +43,19 @@ public class MainActivity extends ActionBarActivity implements AtelierListFragme
 		ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), titles, 3);
 
 		// Assigning ViewPager View and setting the adapter
-		ViewPager pager = (ViewPager) findViewById(R.id.pager);
+		pager = (ViewPager) findViewById(R.id.pager);
 		pager.setAdapter(adapter);
 
 		// Assiging the Sliding Tab Layout View
-		SlidingTabLayout tabs = (SlidingTabLayout) findViewById(R.id.tabs);
+		tabs = (SlidingTabLayout) findViewById(R.id.tabs);
 		tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true, This makes the tabs Space Evenly in Available width
 
 		// Setting Custom Color for the Scroll bar indicator of the Tab View
-		tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
+		tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer()
+		{
 			@Override
-			public int getIndicatorColor(int position) {
+			public int getIndicatorColor(int position)
+			{
 				return getResources().getColor(R.color.tabsScrollColor);
 			}
 		});
@@ -80,5 +93,64 @@ public class MainActivity extends ActionBarActivity implements AtelierListFragme
 	public void onItemSelected(String id)
 	{
 
+	}
+
+//	@Override
+//	public void onScrollStateChanged(AbsListView view, int scrollState)
+//	{
+//
+//	}
+//
+//	@Override
+//	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
+//	{
+//		if(view.getChildAt(firstVisibleItem)!= null)
+//		{
+//			int scrollY = view.getChildAt(firstVisibleItem).getTop();
+//			int toolbarHeight = toolbar.getMeasuredHeight();
+//			float translationY = 0;
+//			if (scrollY < 0)
+//			{
+//				translationY = scrollY;
+//			}
+////			ObjectAnimator animator = ObjectAnimator.ofFloat(toolbar, "translationY", translationY);
+////			animator.setInterpolator(new AccelerateInterpolator());
+////			animator.setDuration(0);
+////
+////			animator.addListener(new LayerEnablingAnimatorListenerCompat(toolbar));
+////			animator.start();
+//
+//
+//			ViewHelper.setTranslationY(toolbar, scrollY / 2);
+//
+//			// Translate list background
+//			//ViewHelper.setTranslationY(pager, Math.max(0, -scrollY + 300));
+//
+//		}
+//	}
+
+	@Override
+	public boolean onTouch(View v, MotionEvent event)
+	{
+		if(event.getAction() == MotionEvent.ACTION_DOWN)
+		{
+			mInity = event.getY();
+		}
+		else if(event.getAction() == MotionEvent.ACTION_MOVE)
+		{
+			float scrollY = event.getY() - mInity;
+			Log.d("test", "y: "+event.getY() + " scrollY: "+scrollY);
+
+			if(scrollY < 0)
+				ViewHelper.setTranslationY(toolbar, scrollY / 2);
+
+			if( scrollY> (-toolbar.getHeight()) && scrollY < 0)
+				ViewHelper.setTranslationY(tabs, scrollY);
+		}
+		else if(event.getAction() == MotionEvent.ACTION_UP)
+		{
+			mInity = 0;
+		}
+		return false;
 	}
 }

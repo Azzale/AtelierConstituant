@@ -52,6 +52,21 @@ public class Ateliers
 		addItem(item);
 		addItem(new Atelier("2", "Atelier 2 à paris"));
 		addItem(new Atelier("3", "Atelier 3"));
+		addItem(new Atelier("4", "Atelier 5"));
+		addItem(new Atelier("5", "Atelier 3"));
+		addItem(new Atelier("6", "Atelier 3"));
+		addItem(new Atelier("7", "Atelier 4"));
+		addItem(new Atelier("8", "Atelier 4"));
+		addItem(new Atelier("9", "Atelier 4"));
+		addItem(new Atelier("10", "Atelier 4"));
+		addItem(new Atelier("10", "Atelier 5"));
+		addItem(new Atelier("10", "Atelier 3"));
+		addItem(new Atelier("10", "Atelier 5"));
+		addItem(new Atelier("10", "Atelier 3"));
+		addItem(new Atelier("10", "Atelier 3"));
+		addItem(new Atelier("10", "Atelier 3"));
+		addItem(new Atelier("10", "Atelier 7"));
+		addItem(new Atelier("10", "Atelier 8"));
 	}
 
 	private static void addItem(Atelier item)

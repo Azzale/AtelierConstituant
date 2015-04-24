@@ -76,7 +76,8 @@ public class AtelierListFragment extends ListFragment
 
 
 		// TODO: replace with a real list adapter.
-		setListAdapter(new ArrayAdapter<Atelier>(getActivity(), android.R.layout.simple_list_item_activated_1, android.R.id.text1, Ateliers.ITEMS));
+		setListAdapter(new ArrayAdapter<Atelier>(getActivity(), R.layout.default_list_item, R.id.li_text, Ateliers.ITEMS));
+
 	}
 
 	@Override
@@ -92,6 +93,10 @@ public class AtelierListFragment extends ListFragment
 		View header = getLayoutInflater(savedInstanceState).inflate(R.layout.atelier_list_header, null);
 		((TextView)header.findViewById(R.id.atelier_list_header_title)).setText("Ateliers constituants");
 		getListView().addHeaderView(header, null, false);
+		getListView().setDividerHeight(0);
+		getListView().setOnTouchListener((View.OnTouchListener) getActivity());
+		getListView().setClipToPadding(false);
+		getListView().setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
 	}
 
 	@Override
