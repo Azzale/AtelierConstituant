@@ -24,7 +24,7 @@ public class AtelierDetailActivity extends ActionBarActivity
 		setContentView(R.layout.activity_atelier_detail);
 
 		// Show the Up button in the action bar.
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		//getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		// savedInstanceState is non-null when there is fragment state
 		// saved from previous configurations of this activity

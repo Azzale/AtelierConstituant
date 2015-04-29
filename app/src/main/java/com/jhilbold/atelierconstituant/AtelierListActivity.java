@@ -4,6 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
+import android.view.View;
+import android.widget.ListView;
+
+import com.jhilbold.atelierconstituant.metier.Atelier;
 
 /**
  * An activity representing a list of Ateliers. This activity has different presentations for
@@ -54,7 +58,6 @@ public class AtelierListActivity extends ActionBarActivity implements AtelierLis
 	 * Callback method from {@link AtelierListFragment.Callbacks} indicating that the item with the
 	 * given ID was selected.
 	 */
-	@Override
 	public void onItemSelected(String id)
 	{
 		if (mTwoPane)
@@ -79,5 +82,9 @@ public class AtelierListActivity extends ActionBarActivity implements AtelierLis
 		}
 	}
 
+	@Override
+	public void onAtelierSelected(ListView lv, View view, Atelier a)
+	{
 
+	}
 }

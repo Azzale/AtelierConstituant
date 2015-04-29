@@ -16,6 +16,9 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter
 
 	CharSequence Titles[]; // This will Store the Titles of the Tabs which are Going to be passed when ViewPagerAdapter is created
 	int NumbOfTabs; // Store the number of tabs, this will also be passed when the ViewPagerAdapter is created
+	private AtelierListFragment tab1;
+	private PersonneListFragment tab2;
+	private ArticleListFragment tab3;
 
 	// Build a Constructor and assign the passed Values to appropriate values in the class
 	public ViewPagerAdapter(FragmentManager fm, CharSequence mTitles[], int mNumbOfTabsumb)
@@ -34,17 +37,20 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter
 
 		if (position == 0) // if the position is 0 we are returning the First tab
 		{
-			AtelierListFragment tab1 = new AtelierListFragment();
+			if(tab1 == null)
+				tab1 = new AtelierListFragment();
 			return tab1;
 		}
 		else if(position == 1)            // As we are having 2 tabs if the position is now 0 it must be 1 so we are returning second tab
 		{
-			PersonneListFragment tab2 = new PersonneListFragment();
+			if(tab2 == null)
+				tab2 = new PersonneListFragment();
 			return tab2;
 		}
 		else
 		{
-			ArticleListFragment tab3 = new ArticleListFragment();
+			if(tab3 == null)
+				tab3 = new ArticleListFragment();
 			return tab3;
 		}
 

@@ -1,8 +1,11 @@
 package com.jhilbold.atelierconstituant;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.transition.TransitionInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -30,7 +33,7 @@ public class AtelierListFragment extends ListFragment
 	/**
 	 * The fragment's current callback object, which is notified of list item clicks.
 	 */
-	private Callbacks mCallbacks = sDummyCallbacks;
+	private Callbacks mCallbacks = null;
 
 	/**
 	 * The current activated item position. Only used on tablets.
@@ -46,20 +49,8 @@ public class AtelierListFragment extends ListFragment
 		/**
 		 * Callback for when an item has been selected.
 		 */
-		public void onItemSelected(String id);
+		public void onAtelierSelected(ListView lv, View view, Atelier a);
 	}
-
-	/**
-	 * A dummy implementation of the {@link Callbacks} interface that does nothing. Used only when
-	 * this fragment is not attached to an activity.
-	 */
-	private static Callbacks sDummyCallbacks = new Callbacks()
-	{
-		@Override
-		public void onItemSelected(String id)
-		{
-		}
-	};
 
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the fragment (e.g. upon
@@ -119,7 +110,7 @@ public class AtelierListFragment extends ListFragment
 		super.onDetach();
 
 		// Reset the active callbacks interface to the dummy implementation.
-		mCallbacks = sDummyCallbacks;
+		mCallbacks = null;
 	}
 
 	@Override
@@ -129,9 +120,21 @@ public class AtelierListFragment extends ListFragment
 
 		super.onListItemClick(listView, view, position, id);
 
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			setSharedElement();
+		}
+
+
 		// Notify the active callbacks interface (the activity, if the
 		// fragment is attached to one) that an item has been selected.
-		mCallbacks.onItemSelected(Ateliers.ITEMS.get(position).getId());
+		mCallbacks.onAtelierSelected(listView, view, Ateliers.ITEMS.get(position));
+	}
+
+	@TargetApi(Build.VERSION_CODES.KITKAT)
+	private void setSharedElement()
+	{
+		setSharedElementReturnTransition(TransitionInflater.from(getActivity()).inflateTransition(R.transition.list_to_detail));
+		setExitTransition(TransitionInflater.from(getActivity()).inflateTransition(android.R.transition.explode));
 	}
 
 	@Override

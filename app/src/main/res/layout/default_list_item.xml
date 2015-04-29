@@ -9,7 +9,7 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@drawable/card_background"
+              android:transitionName="default_list_item_transition"
               android:padding="15dp">
 
     <TextView
@@ -17,5 +17,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
         android:gravity="center_vertical"
+        android:transitionName="transition_title"
         android:id="@+id/li_text" />
 </LinearLayout>

@@ -6,22 +6,37 @@
 
 package com.jhilbold.atelierconstituant;
 
+import android.annotation.TargetApi;
+import android.os.Build;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.ListFragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.transition.Explode;
+import android.transition.Fade;
+import android.transition.Slide;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.AbsListView;
+import android.widget.ListView;
 
+import com.jhilbold.atelierconstituant.metier.Atelier;
 import com.jhilbold.atelierconstituant.ui.LayerEnablingAnimatorListenerCompat;
 import com.jhilbold.atelierconstituant.ui.SlidingTabLayout;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
+
+import java.util.List;
 
 public class MainActivity extends ActionBarActivity implements AtelierListFragment.Callbacks, PersonneListFragment.Callbacks,ArticleListFragment.Callbacks, View.OnTouchListener
 {
@@ -90,12 +105,87 @@ public class MainActivity extends ActionBarActivity implements AtelierListFragme
 	}
 
 	@Override
-	public void onItemSelected(String id)
+	public void onAtelierSelected(ListView lv, View view, Atelier a)
 	{
+		lv.setEnabled(false);
+		animateToolbarUp();
+		findViewById(R.id.bottom_layout).setVisibility(View.VISIBLE);
 
+		AtelierDetailFragment adf = new AtelierDetailFragment();
+		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+		{
+			addSharedElementAnimation(adf);
+		}
+
+		Bundle b = new Bundle();
+		b.putString(AtelierDetailFragment.ARG_ITEM_ID, a.getId());
+		adf.setArguments(b);
+
+		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+		ft.replace(R.id.bottom_layout, adf, "adf");
+		ft.setCustomAnimations(R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_top);
+		ft.addSharedElement(view.findViewById(R.id.li_text), "transition_title");
+		ft.setTransition(R.transition.list_to_detail);
+		ft.addToBackStack(null);
+		ft.commit();
 	}
 
-//	@Override
+	@Override
+	public void onBackPressed()
+	{
+		if(findViewById(R.id.bottom_layout).getVisibility() == ListView.VISIBLE)
+		{
+			findViewById(R.id.bottom_layout).setVisibility(View.GONE);
+			animateToolbarDown();
+			((ListFragment)((FragmentStatePagerAdapter) pager.getAdapter()).getItem(pager.getCurrentItem())).getListView().setEnabled(true);
+		}
+		else
+
+		super.onBackPressed();
+	}
+
+	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
+	private void addSharedElementAnimation(AtelierDetailFragment adf)
+	{
+		adf.setSharedElementEnterTransition(TransitionInflater.from(this).inflateTransition(R.transition.list_to_detail));
+		adf.setEnterTransition(TransitionInflater.from(this).inflateTransition(android.R.transition.explode));
+	}
+
+	private void animateToolbarUp()
+	{
+		float translationY = -toolbar.getHeight();
+		ObjectAnimator animator = ObjectAnimator.ofFloat(toolbar, "translationY", translationY);
+		animator.setInterpolator(new AccelerateInterpolator());
+		animator.setDuration(300);
+
+		animator.addListener(new LayerEnablingAnimatorListenerCompat(toolbar));
+		animator.start();
+
+		animator = ObjectAnimator.ofFloat(tabs, "translationY", -tabs.getHeight());
+		animator.setInterpolator(new AccelerateInterpolator());
+		animator.setDuration(300);
+
+		animator.addListener(new LayerEnablingAnimatorListenerCompat(toolbar));
+		animator.start();
+	}
+	private void animateToolbarDown()
+	{
+		ObjectAnimator animator = ObjectAnimator.ofFloat(toolbar, "translationY", 0);
+		animator.setInterpolator(new AccelerateInterpolator());
+		animator.setDuration(300);
+
+		animator.addListener(new LayerEnablingAnimatorListenerCompat(toolbar));
+		animator.start();
+
+		animator = ObjectAnimator.ofFloat(tabs, "translationY", 0);
+		animator.setInterpolator(new AccelerateInterpolator());
+		animator.setDuration(300);
+
+		animator.addListener(new LayerEnablingAnimatorListenerCompat(toolbar));
+		animator.start();
+	}
+
+	//	@Override
 //	public void onScrollStateChanged(AbsListView view, int scrollState)
 //	{
 //
@@ -152,5 +242,11 @@ public class MainActivity extends ActionBarActivity implements AtelierListFragme
 			mInity = 0;
 		}
 		return false;
+	}
+
+	@Override
+	public void onItemSelected(String id)
+	{
+
 	}
 }
